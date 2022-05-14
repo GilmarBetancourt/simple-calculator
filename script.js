@@ -6,20 +6,33 @@ const inputField = document.getElementById("inputField");
 
 //Function to get the input
 
-function getInput() {
-  const number = inputField.value;
-
-  if (/^\d/.test(number)) {
-    numberArr.push(parseInt(number));
+function getInput(event) {
+  let number = event.key;
+  numberArr.push(number);
+  if (/^\d/.test(numberArr[0])) {
     console.log(numberArr.length);
   } else if (inputAllRegex.test(number)) {
-    console.log(
+    alert(
       "Your operation must start with a number. Allowed operations are: + - * /"
     );
-  }
-  if (numberArr.length === 3) {
-    let result = operate(numberArr[1], numberArr[0], numberArr[2]);
-    console.log(result);
+  } //Add an if to erase the input and the array when pressing ESC
+  if (numberArr.length >= 3) {
+    let result = operate(
+      numberArr[1],
+      parseInt(numberArr[0]),
+      parseInt(numberArr[2])
+    );
+    console.log(
+      "first: " +
+        numberArr[0] +
+        " sign: " +
+        numberArr[1] +
+        " second: " +
+        numberArr[2] +
+        " = " +
+        result
+    );
+    inputField.value = result;
   }
 }
 
