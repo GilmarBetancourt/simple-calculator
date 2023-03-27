@@ -15,22 +15,43 @@ body {
   width: 25%;
   height: 75vh;
   border-radius: 8%;
+<<<<<<< HEAD
+=======
+  min-width: 210px;
+>>>>>>> acb630b (Calculator final version.)
 }
 
 .gridItem {
   background-color: #c4c4c4;
   border-radius: 10%;
+<<<<<<< HEAD
   font-family: "Macondo", cursive;
   font-size: 2rem;
+=======
+  font-family: "Macondo", cursive, bold;
+  font-size: 1.5rem;
+>>>>>>> acb630b (Calculator final version.)
 }
 
 #inputField {
   grid-column-start: 1;
   grid-column-end: 5;
   border-radius: 0%;
+<<<<<<< HEAD
+=======
+  text-align: right;
+>>>>>>> acb630b (Calculator final version.)
 }
 
 .bigButton {
   grid-column-start: 1;
   grid-column-end: 3;
+<<<<<<< HEAD
+=======
+  
+}
+
+.nondigits{
+  background-color: rgb(142, 139, 203);
+>>>>>>> acb630b (Calculator final version.)
 }
