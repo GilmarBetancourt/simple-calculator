@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-const inputAllRegex = /([^0-9=+\.\*/-])/;
-const inputSignsRegex = /([=+\.\*/-])/;
-let numberArr = [];
-
-const inputField = document.getElementById("inputField");
-
-=======
 //Variable declarations. And regexes.
 
 const inputSignsRegex = /([-+\*\/])/;
@@ -30,39 +22,10 @@ inputField.addEventListener("beforeinput", (event)=>{
   }
 });
 
->>>>>>> acb630b (Calculator final version.)
 //Function to get the input
 
 function getInput(event) {
   let number = event.key;
-<<<<<<< HEAD
-  numberArr.push(number);
-  if (/^\d/.test(numberArr[0])) {
-    console.log(numberArr.length);
-  } else if (inputAllRegex.test(number)) {
-    alert(
-      "Your operation must start with a number. Allowed operations are: + - * /"
-    );
-  } //Add an if to erase the input and the array when pressing ESC
-  if (numberArr.length >= 3) {
-    let result = operate(
-      numberArr[1],
-      parseInt(numberArr[0]),
-      parseInt(numberArr[2])
-    );
-    console.log(
-      "first: " +
-        numberArr[0] +
-        " sign: " +
-        numberArr[1] +
-        " second: " +
-        numberArr[2] +
-        " = " +
-        result
-    );
-    inputField.value = result;
-  }
-=======
 
   if(fullOperationRegex.test(inputField.value)&& number==="Enter"){
 
@@ -85,16 +48,11 @@ function getInput(event) {
     secondValue=0;
   }
   
->>>>>>> acb630b (Calculator final version.)
 }
 
 inputField.addEventListener("keyup", getInput);
 
-<<<<<<< HEAD
-//Function to do the operation goes here
-=======
 //Function to do the operation.
->>>>>>> acb630b (Calculator final version.)
 
 function operate(sign, num1, num2) {
   if (sign === "+") {
@@ -126,22 +84,3 @@ const divide = function (num1, num2) {
   return num1 / num2;
 };
 
-<<<<<<< HEAD
-/*
-const sum = function (arr) {
-  let sum = arr.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue;
-  }, 0);
-  return sum;
-};
-
-const multiply = function (arr) {
-  let sum = arr.reduce((previousValue, currentValue) => {
-    return previousValue * currentValue;
-  });
-  return sum;
-};
-*/
-=======
-
->>>>>>> acb630b (Calculator final version.)
