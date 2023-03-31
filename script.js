@@ -9,8 +9,13 @@ let signpos;
 
 const inputField = document.getElementById("inputField");
 
-//To restrict the input field to only one operation and grab the operation Symbol.
+const symbolButtons = document.querySelectorAll("button.numbers, button.nondigits");
 
+//To get input from the buttons
+symbolButtons.forEach((button) => button.addEventListener("click", () => inputField.textContent += button.textContent ));
+
+//To restrict the input field to only one operation and grab the operation Symbol.
+//FIX
 inputField.addEventListener("beforeinput", (event)=>{
   let beforesign = event.data;
   console.log("Beforeinput sign: " + beforesign);
@@ -19,6 +24,7 @@ inputField.addEventListener("beforeinput", (event)=>{
   } else if(inputSignsRegex.test(beforesign)){
     operation = beforesign;
     signpos = inputField.value.indexOf(operation);
+    console.log("Position: " + signpos);
   }
 });
 
@@ -42,10 +48,7 @@ function getInput(event) {
   //To erase the entire input field.
 
   if(number==="Escape"){
-    inputField.value = "";
-    operation = "";
-    firstValue=0;
-    secondValue=0;
+    clearTheField();
   }
   
 }
@@ -67,6 +70,13 @@ function operate(sign, num1, num2) {
 }
 
 //Operations
+
+function clearTheField() {
+  inputField.value = "";
+  operation = "";
+  firstValue=0;
+  secondValue=0;
+}
 
 const add = function (num1, num2) {
   return num1 + num2;
