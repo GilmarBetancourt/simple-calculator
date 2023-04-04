@@ -1,48 +1,69 @@
 //Variable declarations. And regexes.
 
-const inputSignsRegex = /([-+\*\/])/;
-const fullOperationRegex= /^(\d+(\.\d+)?[-+\/*]\d+(\.\d+)?)/;
+const inputSignsRegex = /([-+\*\/])/g;
+const fullOperationRegex= /(\d+(\.\d+)?)([-+\/*])(\d+(\.\d+)?)/;
 let firstValue=0;
 let secondValue=0;
 let operation = "";
 let signpos;
+let number;
 
 const inputField = document.getElementById("inputField");
 
 const symbolButtons = document.querySelectorAll("button.numbers, button.nondigits");
 
 //To get input from the buttons
-symbolButtons.forEach((button) => button.addEventListener("click", () => inputField.textContent += button.textContent ));
+symbolButtons.forEach((button) => button.addEventListener("click", 
+function () {
+  switch(button.id){
+    case "equal":
+      number = "Enter";
+      evaluate ();
+      break;
+    //FIX: this is not working.  
+    case "backspace":
+      inputField.value.slice(-1);
+      break;
+    case "clear":
+      clearTheField();
+      break;
+    default:
+      inputField.value += button.textContent;
+  }
+} ));
 
-//To restrict the input field to only one operation and grab the operation Symbol.
-//FIX
+//To restrict the input field to only one operation.
 inputField.addEventListener("beforeinput", (event)=>{
   let beforesign = event.data;
   console.log("Beforeinput sign: " + beforesign);
   if(fullOperationRegex.test(inputField.value) && inputSignsRegex.test(beforesign)){
     event.preventDefault();
-  } else if(inputSignsRegex.test(beforesign)){
-    operation = beforesign;
-    signpos = inputField.value.indexOf(operation);
-    console.log("Position: " + signpos);
   }
 });
 
 //Function to get the input
 
 function getInput(event) {
-  let number = event.key;
+  number = event.key;
+  evaluate ();
+}
 
+function evaluate(){
+
+  //To evaluate the full operation.
   if(fullOperationRegex.test(inputField.value)&& number==="Enter"){
-
+    operation = inputField.value.match(inputSignsRegex);
+    signpos = inputField.value.search(inputSignsRegex);
     firstValue = parseFloat(inputField.value.slice(0,signpos));
-    secondValue = parseFloat(inputField.value.slice(signpos+1));
-    let result= operate(operation, firstValue, secondValue);
+    secondValue = parseFloat(inputField.value.slice(signpos+1));  
+    let result= operate(operation[0], firstValue, secondValue);
       inputField.value = result;
       console.log("Value1: " + firstValue);
       console.log("Value2: " + secondValue);
       console.log("Sign: " + operation);
+      console.log("Position: " + signpos);
       console.log(" Result: " + result);	
+      console.log(typeof operation);
   }
 
   //To erase the entire input field.
@@ -50,7 +71,7 @@ function getInput(event) {
   if(number==="Escape"){
     clearTheField();
   }
-  
+
 }
 
 inputField.addEventListener("keyup", getInput);
