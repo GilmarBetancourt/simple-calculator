@@ -19,17 +19,20 @@ function () {
     case "equal":
       number = "Enter";
       evaluate ();
-      break;
-    //FIX: this is not working.  
+      
+      break;  
     case "backspace":
-      inputField.value.slice(-1);
+      inputField.value = inputField.value.slice(0, -1);
+      
       break;
     case "clear":
       clearTheField();
+      
       break;
     default:
       inputField.value += button.textContent;
   }
+  inputField.focus();
 } ));
 
 //To restrict the input field to only one operation.
