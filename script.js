@@ -1,3 +1,5 @@
+//Simple calculator that does one operation at the time. It can take input from keyboard and buttons.
+
 //Variable declarations. And regexes.
 
 const inputSignsRegex = /([-+\*\/])/g;
@@ -7,74 +9,73 @@ let secondValue=0;
 let operation = "";
 let signpos;
 let number;
+let buttonClicked;
 
 const inputField = document.getElementById("inputField");
-
 const symbolButtons = document.querySelectorAll("button.numbers, button.nondigits");
+
 
 //To get input from the buttons
 symbolButtons.forEach((button) => button.addEventListener("click", 
-function () {
+function (event) {
+  buttonClicked = button.textContent;
   switch(button.id){
     case "equal":
       number = "Enter";
       evaluate ();
-      
       break;  
     case "backspace":
       inputField.value = inputField.value.slice(0, -1);
-      
       break;
     case "clear":
-      clearTheField();
-      
+      clearTheField(); 
       break;
     default:
       inputField.value += button.textContent;
   }
+  restrictToOne(event);
   inputField.focus();
 } ));
 
 //To restrict the input field to only one operation.
-inputField.addEventListener("beforeinput", (event)=>{
-  let beforesign = event.data;
-  console.log("Beforeinput sign: " + beforesign);
-  if(fullOperationRegex.test(inputField.value) && inputSignsRegex.test(beforesign)){
-    event.preventDefault();
-  }
-});
 
-//Function to get the input
+inputField.addEventListener("beforeinput", (event) => restrictToOne(event));
+
+//Function to restrict input field to only one operation
+function restrictToOne(event){
+  if(fullOperationRegex.test(inputField.value) && inputSignsRegex.test(event.data)){
+    event.preventDefault();
+    alert("Please, only one operation at the time");
+  }
+  if (event = "click" ){
+    if(fullOperationRegex.test(inputField.value) && inputSignsRegex.test(buttonClicked)){
+      alert("Please, only one operation at the time");
+      inputField.value = inputField.value.slice(0,-1);
+    }
+  }
+}
+
+//Function to get the input from keyboard.
 
 function getInput(event) {
   number = event.key;
   evaluate ();
 }
 
-function evaluate(){
+//Function to evaluate the text input field for a full operation
 
-  //To evaluate the full operation.
+function evaluate(){
   if(fullOperationRegex.test(inputField.value)&& number==="Enter"){
     operation = inputField.value.match(inputSignsRegex);
     signpos = inputField.value.search(inputSignsRegex);
     firstValue = parseFloat(inputField.value.slice(0,signpos));
     secondValue = parseFloat(inputField.value.slice(signpos+1));  
     let result= operate(operation[0], firstValue, secondValue);
-      inputField.value = result;
-      console.log("Value1: " + firstValue);
-      console.log("Value2: " + secondValue);
-      console.log("Sign: " + operation);
-      console.log("Position: " + signpos);
-      console.log(" Result: " + result);	
-      console.log(typeof operation);
+    inputField.value = result;
   }
-
-  //To erase the entire input field.
-
   if(number==="Escape"){
     clearTheField();
   }
-
 }
 
 inputField.addEventListener("keyup", getInput);
@@ -93,14 +94,15 @@ function operate(sign, num1, num2) {
   }
 }
 
-//Operations
-
+//To erase the entire input field.
 function clearTheField() {
   inputField.value = "";
   operation = "";
   firstValue=0;
   secondValue=0;
 }
+
+//Operations
 
 const add = function (num1, num2) {
   return num1 + num2;
