@@ -44,13 +44,13 @@ body {
 
 /*For mobile view*/
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width:768px){
  
   .frame{
     margin-top: 15%;
     padding: 6%;
     width: 30%;
-    height: 65vh;
+    height: 65%;
     border-radius: 8%;
     
   }
