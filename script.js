@@ -14,6 +14,14 @@ let buttonClicked;
 const inputField = document.getElementById("inputField");
 const symbolButtons = document.querySelectorAll("button.numbers, button.nondigits");
 
+//To prevent cellphone keyboard from popping up in mobile view
+function noMobileKeyboard(){
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    inputField.inputMode = "none";
+  }
+}
+
+noMobileKeyboard();
 
 //To get input from the buttons
 symbolButtons.forEach((button) => button.addEventListener("click", 
